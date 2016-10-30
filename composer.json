@@ -2,7 +2,7 @@
     "name": "humanized/yii2-account",
     "type": "yii2-extension",
     "description": "Yii2 module providing various mechanisms dealing for dealing with user accounts",
-    "keywords": ["yii2", "user","admin","gui","cli","api"],
+    "keywords": ["yii2", "user", "admin", "gui", "cli", "api"],
     "license": "GPL-3.0",
     "version": "0.1",
     "support": {
@@ -23,7 +23,8 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
+        "humanized/yii2-mail": "*"
     },
     "autoload": {
         "psr-4": {
