@@ -37,8 +37,8 @@ class RecoveryRequest extends Model
         $identityClass = Yii::$app->user->identityClass;
         $user = $identityClass::findOne(['email' => $this->email]);
         if (isset($user)) {
-            $class = '\\humanized\\account\\models\\mail\\' . ($user->status == User::STATUS_PENDING ? 'AccountConfirmationMail' : 'AccountResetMail');
-            $email = new $class(['email' => $user->email]);
+            $class = '\\humanized\\account\\models\\mail\\' . ($user->status == User::STATUS_PENDING ? 'UserConfirmationMail' : 'AccountRecoveryMail');
+            $email = new $class(['destination' => $user->email]);
             return $email->send();
         }
         return false;

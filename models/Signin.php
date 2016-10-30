@@ -69,10 +69,10 @@ class Signin extends Model
      */
     protected function getUser()
     {
+        $identityClass = Yii::$app->user->identityClass;
         if ($this->_user === null) {
-            $this->_user = User::findOne(['email' => $this->email]);
+            $this->_user = $identityClass::findOne(['email' => $this->email]);
         }
-
         return $this->_user;
     }
 
