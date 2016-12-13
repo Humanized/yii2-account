@@ -4,12 +4,11 @@ namespace humanized\account\controllers;
 
 use Yii;
 use yii\web\Controller;
-use humanized\account\models\Signin;
-use humanized\account\models\Signup;
-use humanized\account\models\RecoveryRequest;
+use humanized\account\models\base\RecoveryRequest;
+use humanized\account\models\base\PasswordSetup;
 
 /**
- * SupplyController implements the CRUD actions for Supply model.
+ * RecoveryController implements the actions for account password recovery.
  */
 class RecoveryController extends Controller
 {
@@ -28,7 +27,6 @@ class RecoveryController extends Controller
 
     public function actionResetPassword($token)
     {
-
         $userClass = Yii::$app->user->identityClass;
         if (!$userClass::isPasswordResetTokenValid($token)) {
             Yii::$app->session->setFlash('error', Yii::t('app', 'link.error{type}{status}', ['type' => 'Reset', 'status' => 'expired']));
@@ -39,7 +37,6 @@ class RecoveryController extends Controller
             Yii::$app->session->setFlash('error', Yii::t('app', 'link.error{type}{status}', ['type' => 'Reset', 'status' => 'invalid']));
             return $this->redirect(['request-account-reset']);
         }
-
         $model = new PasswordSetup(['token' => $token]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('info', Yii::t('app', 'account-reset-success'));

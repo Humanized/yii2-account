@@ -31,8 +31,11 @@ class AccountSettings extends Model
             [['name', 'languages', 'country'], 'required'],
             ['name', 'string', 'max' => 255],
             ['name', 'unique', 'targetClass' => '\humanized\account\models\User', 'message' => 'This user name has already been taken.'],
+            /*
             ['languages', 'each', 'rule' => ['in', 'range' => LanguageHelper::primary()]],
             ['languages', 'checkLanguages'],
+             * 
+             */
         ];
     }
 

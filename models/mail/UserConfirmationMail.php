@@ -32,7 +32,6 @@ class UserConfirmationMail extends Model
                 return false;
             }
         }
-
         $this->extraParams['user'] = $user;
     }
 

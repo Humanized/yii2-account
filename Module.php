@@ -22,6 +22,7 @@ namespace humanized\account;
  */
 class Module extends \yii\base\Module
 {
+    public $enableFlashMessages = true;
 
     public function init()
     {

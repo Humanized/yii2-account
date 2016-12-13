@@ -4,9 +4,9 @@ namespace humanized\account\controllers;
 
 use Yii;
 use yii\web\Controller;
-use humanized\account\models\Signin;
-use humanized\account\models\Signup;
-use humanized\account\models\RecoveryRequest;
+use humanized\account\models\base\Signin;
+use humanized\account\models\base\Signup;
+use humanized\account\models\base\RecoveryRequest;
 
 /**
  * SupplyController implements the CRUD actions for Supply model.

@@ -1,6 +1,6 @@
 <?php
 
-namespace humanized\account\models;
+namespace humanized\account\models\base;
 
 use Yii;
 use yii\base\Model;
@@ -39,6 +39,7 @@ class Signup extends Model
         if (!$this->validate()) {
             return null;
         }
+        
         $user = UserCrud::create(['email' => $this->email]);
         if (isset($user)) {
             $confirmation = new UserConfirmationMail(['to' => $user->email]);
