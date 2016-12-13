@@ -3,9 +3,6 @@
 namespace humanized\account\models;
 
 use yii\base\Model;
-use humanized\account\models\User;
-use humanized\account\models\AccountPasswordForm;
-use humanized\localehelpers\Language as LanguageHelper;
 use Yii;
 
 /**
@@ -28,24 +25,27 @@ class AccountSettings extends Model
     {
         return [
             ['name', 'filter', 'filter' => 'trim'],
-            [['name', 'languages', 'country'], 'required'],
+            ['name', 'required'],
             ['name', 'string', 'max' => 255],
-            ['name', 'unique', 'targetClass' => '\humanized\account\models\User', 'message' => 'This user name has already been taken.'],
-            /*
-            ['languages', 'each', 'rule' => ['in', 'range' => LanguageHelper::primary()]],
-            ['languages', 'checkLanguages'],
-             * 
-             */
+            ['name', 'unique', 'targetClass' => Yii::$app->user->identityClass, 'message' => 'This user name has already been taken.'],
+                /*
+                  ['languages', 'each', 'rule' => ['in', 'range' => LanguageHelper::primary()]],
+                  ['languages', 'checkLanguages'],
+                 * 
+                 */
         ];
     }
 
-    public function checkLanguages()
-    {
-        if (empty($this->languages)) {
-            $this->addError('languages', 'At least one spoken language must be provided');
-            return false;
-        }
-    }
+    /*
+      public function checkLanguages()
+      {
+      if (empty($this->languages)) {
+      $this->addError('languages', 'At least one spoken language must be provided');
+      return false;
+      }
+      }
+     * 
+     */
 
     public function getPasswordSetup()
     {

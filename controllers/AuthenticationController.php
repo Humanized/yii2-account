@@ -14,6 +14,21 @@ use humanized\account\models\base\Signup;
 class AuthenticationController extends Controller
 {
 
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     private $allowSignup = true;
 
     public function behaviors()
@@ -57,18 +72,6 @@ class AuthenticationController extends Controller
         ]);
     }
 
-    public function actionSettings()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->goBack();
-        }
-        $model = new AccountSettings();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('info', Yii::t('app', 'settings-success'));
-        }
-        return $this->render('settings', ['model' => $model]);
-    }
-
     public function actionConfirm($token)
     {
         $userClass = Yii::$app->user->identityClass;
@@ -91,6 +94,11 @@ class AuthenticationController extends Controller
         return $this->render('settings', ['model' => $model]);
     }
 
+    /**
+     * Signs the current user out.
+     *
+     * @return mixed
+     */
     public function actionSignout()
     {
         Yii::$app->user->logout();
