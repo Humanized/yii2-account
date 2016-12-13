@@ -4,15 +4,30 @@ namespace humanized\account\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\filters\VerbFilter;
 use humanized\account\models\base\Signin;
 use humanized\account\models\base\Signup;
-use humanized\account\models\base\RecoveryRequest;
 
 /**
  * SupplyController implements the CRUD actions for Supply model.
  */
 class AuthenticationController extends Controller
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     private $allowSignup = true;
 
@@ -27,7 +42,7 @@ class AuthenticationController extends Controller
         }
 
         $signin = new Signin();
-        $signup = new SignUp();
+        $signup = new Signup();
         if ($signin->load(Yii::$app->request->post()) && $signin->login()) {
             Yii::$app->session->setFlash('success', Yii::t('app', 'signin-success'));
 
@@ -42,18 +57,6 @@ class AuthenticationController extends Controller
                     'login' => $signin,
                     'signup' => $signup,
         ]);
-    }
-
-    public function actionSettings()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->goBack();
-        }
-        $model = new AccountSettings();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('info', Yii::t('app', 'settings-success'));
-        }
-        return $this->render('settings', ['model' => $model]);
     }
 
     public function actionConfirm($token)
@@ -76,6 +79,17 @@ class AuthenticationController extends Controller
             return;
         }
         return $this->render('settings', ['model' => $model]);
+    }
+
+    /**
+     * Signs the current user out.
+     *
+     * @return mixed
+     */
+    public function actionSignout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
     }
 
 }
