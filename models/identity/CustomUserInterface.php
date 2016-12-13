@@ -21,8 +21,8 @@ use humanized\account\models\identity\AdvancedUserInterface;
 class CustomUserInterface extends AdvancedUserInterface
 {
 
-    const STATUS_DELETED = 0;
-    const STATUS_PENDING = 1;
+    const STATUS_DELETED = -1;
+    const STATUS_PENDING = 0;
     const STATUS_ACTIVE = 10;
 
     /**
@@ -33,15 +33,7 @@ class CustomUserInterface extends AdvancedUserInterface
         return '{{%user}}';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
+
 
     /**
      * @inheritdoc
