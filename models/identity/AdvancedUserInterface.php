@@ -1,6 +1,6 @@
 <?php
 
-namespace humanized\accounts\models\identity;
+namespace humanized\account\models\identity;
 
 use Yii;
 use yii\base\NotSupportedException;

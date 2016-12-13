@@ -22,7 +22,11 @@ namespace humanized\account;
  */
 class Module extends \yii\base\Module
 {
+
     public $enableFlashMessages = true;
+    public $enableSignUp = true;
+    public $enableUserConfirmation = true;
+    public $enableAdminConfirmation = true;
 
     public function init()
     {

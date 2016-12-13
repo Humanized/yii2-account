@@ -1,8 +1,8 @@
 <?php
 
-namespace humanized\accounts\models\identity;
+namespace humanized\account\models\identity;
 
-use humanized\accounts\models\identity\AdvancedUserInterface;
+use humanized\account\models\identity\AdvancedUserInterface;
 
 /**
  * CustomUserInterface model

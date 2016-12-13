@@ -1,6 +1,6 @@
 <?php
 
-namespace humanized\accounts\models\identity;
+namespace humanized\account\models\identity;
 
 class BasicUserInterface extends \yii\base\Object implements \yii\web\IdentityInterface
 {
