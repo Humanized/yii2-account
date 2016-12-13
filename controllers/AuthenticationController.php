@@ -4,9 +4,9 @@ namespace humanized\account\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\filters\VerbFilter;
 use humanized\account\models\base\Signin;
 use humanized\account\models\base\Signup;
-use humanized\account\models\base\RecoveryRequest;
 
 /**
  * SupplyController implements the CRUD actions for Supply model.
@@ -15,6 +15,19 @@ class AuthenticationController extends Controller
 {
 
     private $allowSignup = true;
+
+    public function behaviors()
+    {
+        return [
+
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'signout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     /**
      * 
@@ -27,7 +40,7 @@ class AuthenticationController extends Controller
         }
 
         $signin = new Signin();
-        $signup = new SignUp();
+        $signup = new Signup();
         if ($signin->load(Yii::$app->request->post()) && $signin->login()) {
             Yii::$app->session->setFlash('success', Yii::t('app', 'signin-success'));
 
@@ -76,6 +89,12 @@ class AuthenticationController extends Controller
             return;
         }
         return $this->render('settings', ['model' => $model]);
+    }
+
+    public function actionSignout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
     }
 
 }
